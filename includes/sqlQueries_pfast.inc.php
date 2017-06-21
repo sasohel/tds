@@ -175,7 +175,7 @@ if($post_uri['id']) {
                 $issue_date = $post['issue_date'];
                 
                 $issue = $cache->get_item($cache_key_issue); // get issue from cache
-                if(!$issue){
+                if($issue){
                     $sql = "SELECT * FROM publicationdate WHERE publication_date = '" . str_replace('iss_', '', $cache_key_issue) . "'";
                     $connection = !isset($connection) ? dbConnect('read', MYDATABASE) : $connection;
                     $result = $connection->query($sql) or die(mysqli_error($connection));
@@ -318,7 +318,7 @@ if(array_key_exists('page', $_GET) || $issue_date){ // get page info
 
     if($cache_key_daily_page){
         $daily_pages = $cache->get_item($cache_key_daily_page); // daily page for cache
-        if(!$daily_pages){
+        if($daily_pages){
             $sql = "SELECT DISTINCT page_names.cat_id AS id, cat_display_name AS title, alias "
             .   "FROM news, page_names "
             .   "WHERE page_names.cat_id = news.news_cat_id "
